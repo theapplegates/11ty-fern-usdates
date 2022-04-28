@@ -13,7 +13,7 @@
   "author": {
     "name": "Tyler M. Roderick",
     "email": "troderick@protonmail.com",
-    "url": "https://www.tylerroderick.com/"
+    "url": "https://fern.paulapplegate.com"
   },
   "license": "MIT",
   "bugs": {
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/tylerMRoderick/fernfolio-11ty-template",
   "devDependencies": {
     "@11ty/eleventy": "2.0.0-canary.8",
+    "@11ty/eleventy-img": "^2.0.0",
     "luxon": "^2.3.2",
     "markdown-it": "^13.0.0",
     "markdown-it-anchor": "^8.6.2"

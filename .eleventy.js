@@ -3,8 +3,39 @@ const CleanCSS = require("clean-css");
 const UglifyJS = require("uglify-es");
 const htmlmin = require("html-minifier");
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
+const Image = require("@11ty/eleventy-img");
 
 module.exports = function(eleventyConfig) {
+  // --- START, eleventy-img
+  function imageShortcode(src, alt, sizes="(min-width: 1024px) 100vw, 50vw") {
+    console.log(`Generating image(s) from:  ${src}`)
+    let options = {
+      widths: [150, 300, 600, 900, 1500, 3000],
+      formats: ["avif", "webp", "jpeg"],
+      urlPath: "/static/img/",
+      outputDir: "./_site/images/",
+      filenameFormat: function (id, src, width, format, options) {
+        const extension = path.extname(src)
+        const name = path.basename(src, extension)
+        return `${name}-${width}w.${format}`
+      }
+    }
+  
+    // generate images
+    Image(src, options)
+  
+    let imageAttributes = {
+      alt,
+      sizes,
+      loading: "lazy",
+      decoding: "async",
+    }
+    // get metadata
+    metadata = Image.statsSync(src, options)
+    return Image.generateHTML(metadata, imageAttributes)
+  }
+  eleventyConfig.addShortcode("image", imageShortcode)
+  // --- END, eleventy-img
 
   // Eleventy Navigation https://www.11ty.dev/docs/plugins/navigation/
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
